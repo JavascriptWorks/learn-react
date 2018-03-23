@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>From Data to UI</title>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+  <style>
+    #container {
+      padding: 50px;
+      background-color: rgb(209, 203, 203);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+
+  <script type="text/babel">
+    class Circle extends React.Component {
+      render() {
+        var circleStyle = {
+          padding: 10,
+          margin: 20,
+          display: "inline-block",
+          backgroundColor: this.props.bgColor,
+          borderRadius: "50%",
+          width: 100,
+          height: 100,
+        };
+
+        return (
+            <div style={circleStyle}></div>
+        );
+      }
+    }
+
+    // YOUR JSX CAN BE ANYWHERE!!..Example 4: Dealing with JSX components using Arrays
+    // React makes UI updates really fast by having good idea of what is going on in your DOM. 
+    // It does this in several ways, but one really noticeable way is by internally marking each element with some sort of an identifier.
+    // When you create elements dynamically (such as what we are doing with our array of Circle components), these identifiers are not automatically set. 
+    // We need to do some extra work. That extra work takes the form of a key prop whose value React uses to uniquely identify each particular component.
+    // This ensures that each component we dynamically create ends up getting a unique identifier that React can then use to optimize any future UI updates.
+    var colors = ["#393E41", "#E94F37", "#1C89BF", "#A1D363", "#85FFC7", "#297373", "#FF8552", "#A40E4C"];
+    var renderData = [];
+    for (var i = 0; i < colors.length; i++) {
+      renderData.push(<Circle key={i} bgColor={colors[i]}/>);
+    }
+
+    ReactDOM.render(
+        <div>
+            {renderData}
+        </div>,
+        document.querySelector("#container")
+    );
+  </script>
+</body>
+
+</html>
